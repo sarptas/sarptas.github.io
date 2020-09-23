@@ -7,13 +7,13 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Hasan Sarptaş, Dr.         "
+title                    : "Your Name / Site Title"
 title_separator          : "-"
-name                     : &name "Hasan Sarptaş"
-description              : "Hasan Sarptaş - Personal Website @Ege University"
-url                      : https://sarptas.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+name                     : &name "Your Name"
+description              : &description "personal description"
+url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "sarptas/sarptas.github.io"
+repository               : "academicpages/academicpages.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
@@ -57,7 +57,7 @@ yandex_site_verification :
 
 # Social Sharing
 twitter:
-  username               : sarptas
+  username               : &twitter
 facebook:
   username               :
   app_id                 :
@@ -80,18 +80,15 @@ analytics:
 
 # Site Author
 author:
-  name             : "Hasan Sarptaş"
+  name             : "Your Sidebar Name"
   avatar           : "profile.png"
-  bio              : "Environmental engineer works on waste management, waste-to-energy, geographic information systems, remote sensing, decision analysis, multi-criteria evaluation.
-\n
-\n
-  Assistant Professor at Ege University, Solar Energy Institute."
-  location         : "İzmir, Turkey"
+  bio              : "Your biography for the left-hand sidebar"
+  location         : "Location"
   employer         :
-  pubmed           : 
-  googlescholar    : "https://scholar.google.com.tr/citations?user=Kw1mvG4AAAAJ"
-  email            : "sarptas@gmail.com"
-  researchgate     : "https://www.researchgate.net/profile/Hasan_Sarptas"
+  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  googlescholar    : "http://yourfullgooglescholarurl.com"
+  email            :
+  researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
   codepen          :
@@ -99,20 +96,20 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "sarptas"
+  github           : "academicpages"
   google_plus      :
   keybase          :
-  instagram        : "sarptas"
+  instagram        :
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
-  linkedin         : "https://www.linkedin.com/in/sarptas/"
-  orcid            : "https://orcid.org/0000-0001-7498-9753"
+  linkedin         :
+  orcid            : "http://orcid.org/yourorcidurl"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : "sarptas"
+  twitter          : "replacethistwitterhandle"
   vine             :
   weibo            :
   xing             :
@@ -178,21 +175,19 @@ kramdown:
 
 # Collections
 collections:
-  courses:
+  teaching:
     output: true
     permalink: /:collection/:path/
   publications:
     output: true
     permalink: /:collection/:path/
-  students:
+  portfolio:
     output: true
     permalink: /:collection/:path/
   talks:
     output: true
     permalink: /:collection/:path/
-  projects:
-    output: true
-    permalink: /:collection/:path/
+
 
 # Defaults
 defaults:
@@ -214,10 +209,10 @@ defaults:
     values:
       layout: single
       author_profile: true
-  # _courses
+  # _teaching
   - scope:
       path: ""
-      type: courses
+      type: teaching
     values:
       layout: single
       author_profile: true
@@ -232,10 +227,10 @@ defaults:
       author_profile: true
       share: true
       comments: true
-  # _students
+  # _portfolio
   - scope:
       path: ""
-      type: students
+      type: portfolio
     values:
       layout: single
       author_profile: true
@@ -249,15 +244,6 @@ defaults:
       layout: talk
       author_profile: true
       share: true
-  # _projects
-  - scope:
-      path: ""
-      type: projects
-    values:
-      layout: splash
-      author_profile: true
-      share: true
-
 
 # Sass/SCSS
 sass:
@@ -269,7 +255,7 @@ sass:
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show
 # paginate_path: /page:num/
-timezone: Europe/Istanbul # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: America/Los_Angeles # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins
