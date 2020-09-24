@@ -1,5 +1,5 @@
 ---
-title: "Arsenic removal from drinking water by chemical methods (In Turkish)"
+title: "Arsenic removal from drinking water by chemical methods"
 collection: publications
 permalink: /publication/2010-itudergisi-e
 excerpt: 'In this review paper, chemical methods for the removal of arsenic from drinking water was discussed.'
