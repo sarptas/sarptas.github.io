@@ -1,6 +1,6 @@
 ---
 title: "Fulya Aydın Kandemir"
-excerpt: "__MSc Thesis__: **Geographic information systems (GIS), remote sensing and analitic hierarchy process (AHP)–based determination of suitable sites for energy crop cultivation**<br/><img src='/images/Fulya_Aydin-Kandemir.jpg' width='240px'>"
+excerpt: "A physicist. <br /> MSc Thesis: **Geographic information systems (GIS), remote sensing and analitic hierarchy process (AHP)–based determination of suitable sites for energy crop cultivation**" <br />Her recent work can be found on [ResearchGate](https://www.researchgate.net/profile/Fulya_Aydin-Kandemir).
 collection: portfolio
 ---
 
