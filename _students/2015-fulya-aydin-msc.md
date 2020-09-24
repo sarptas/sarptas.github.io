@@ -4,7 +4,8 @@ excerpt: "PhD student at Solar Enerrgy Program of  Graduate School of Natural an
 collection: portfolio
 ---
 
-A physicist. 
+A physicist.
+
 MSc Thesis: **Geographic information systems (GIS), remote sensing and analitic hierarchy process (AHP)–based determination of suitable sites for energy crop cultivation**" 
 
-Her recent work can be found on [ResearchGate](https://www.researchgate.net/profile/Fulya_Aydin-Kandemir).
+Her recent works can be found on [ResearchGate page](https://www.researchgate.net/profile/Fulya_Aydin-Kandemir).
