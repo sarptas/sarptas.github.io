@@ -1,5 +1,7 @@
-<h1 align="center">Hi! I'm Hasan Sarptaş from İzmir, Turkey.</h1>
-<h3 align="center">I’m an environmental engineer and I'm working as an assistant professor at Ege University, Solar Energy Institute.</h3>  
+<h1 align="center">Hasan Sarptaş, Dr.</h1>
+<h4 align="center">from İzmir, Turkey.</h3>
+<h4 align="center">an environmental engineer and </h3>  
+<h4 align="center">an assistant professor at Ege University, Solar Energy Institute.</h3> 
 
 <h3 align="center">📫 How to reach me</h3>
 
