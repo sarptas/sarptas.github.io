@@ -5,8 +5,8 @@
 
 
 <p align="center">
-  <a href="mailto:sarptas+github@gmail.com"> E-mail </a>
-  <a href="https://sarptas.github.io">  Web  </a>
+  <a href="mailto:sarptas+github@gmail.com"> <img src="https://img.shields.io/badge/Mail-D14836?style=for-the-badge&logo=Mail.Ru&colorA=302D41&colorB=f7be95" alt="E-Mail" /> </a>
+  <a href="https://sarptas.github.io">  <img src="https://img.shields.io/badge/Blog-blue?style=for-the-badge&logo=Micro.blog&colorA=302D41&colorB=ABE9B3" alt="Blog" />  </a>
   <a href="https://twitter.com/sarptas" target="blank">
     <img src="https://img.shields.io/twitter/follow/sarptas?label=Twitter&logo=twitter&style=for-the-badge&colorA=302D41&colorB=96CDFB" alt="Twitter" />
   </a>
