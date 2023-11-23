@@ -1,12 +1,12 @@
 ---
-title: "Spatial assessment of site suitability for solar desalination plants: a case study of the coastal regions of Turkey"
+title: "Assessing primary areas for a sustainable biochar application in soil by using GIS-based multi-criteria evaluation"
 collection: publications
-permalink: /publication/2020-clean-tech-env-pol
-excerpt: 'This paper introduces a GIS-MCE model for the assessment of suitable sites for solar desalination application for Turkey.'
-date: 2020-03-01
+permalink: /publication/2021-clean-tech-env-pol
+excerpt: 'The principal aim of this study was to develop a GIS-based multi-criteria evaluation model to identify priority areas for biochar application in Turkey's agricultural lands.'
+date: 2021-10-01
 venue: 'Clean Technologies and Environmental Policy'
-paperurl: 'https://doi.org/10.1007/s10098-019-01783-0'
-citation: 'Aydin,F.; Sarptaş, H. (2020): "Spatial assessment of site suitability for solar desalination plants: a case study of the coastal regions of Turkey", <i>Clean Technologies and Environmental Policy</i>, 22 (2), 309-323.'
+paperurl: 'https://doi.org/10.1007/s10098-021-02163-3'
+citation: 'Kutlu Ö., Aydin-Kandemir F., Sarptaş H. (2021): Assessing primary areas for a sustainable biochar application in soil by using GIS-based multi-criteria evaluation. <i>Clean Technologies and Environmental Policy</i>, 23, 2443-2455.'
 ---
 
 Abstract
