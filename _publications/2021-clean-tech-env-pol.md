@@ -2,7 +2,7 @@
 title: "Assessing primary areas for a sustainable biochar application in soil by using GIS-based multi-criteria evaluation"
 collection: publications
 permalink: /publication/2021-clean-tech-env-pol
-excerpt: 'The principal aim of this study was to develop a GIS-based multi-criteria evaluation model to identify priority areas for biochar application in Turkey's agricultural lands.'
+excerpt: "The principal aim of this study was to develop a GIS-based multi-criteria evaluation model to identify priority areas for biochar application in Turkey's agricultural lands."
 date: 2021-10-01
 venue: 'Clean Technologies and Environmental Policy'
 paperurl: 'https://doi.org/10.1007/s10098-021-02163-3'
