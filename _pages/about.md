@@ -8,12 +8,12 @@ redirect_from:
   - /about.html
 ---
 
-Hi! I’m Hasan, an Assistant Professor at [Ege University](https://ege.edu.tr/), in the [Solar Energy Institute](https://eusolar.ege.edu.tr/). I’m an environmental engineer; and my primary study areas include waste management, waste-to-energy, climate change and renewable energy. I have just enough expertise in geographic information systems (GIS), remote sensing, decision making / analysis, programming and data science. I also deal with web design (HTML, CSS, and Wordpress) and graphic design (Inkscape and GIMP).
+Hi! I’m Hasan, an Associate Professor at [Ege University](https://ege.edu.tr/), in the [Solar Energy Institute](https://eusolar.ege.edu.tr/). I’m an environmental engineer; and my primary study areas include environmental management, renewable energy, sustainability of energy systems, and climate change. I have expertise in Geographic Information Systems (GIS), remote sensing, decision analysis, and data science. I also deal with web design (HTML, CSS, and Wordpress) and graphic design (Inkscape and GIMP).
 
 My work and research
 =======
 
-I use geographic information systems, remote sensing and decision analysis techniques to investigate sustainable potentials of renewable energy resources (solar, wind and biomass energy) and environmentally-sound planning of waste management facilities, solar farms, wind farms and biorefineries. I have a particular focus on climate change impacts on energy demand (heating and cooling degree days) and renewable energy. I’ve also studied on water supply projects, including the design of water supply systems and hydraulic modeling of water distribution systems by [EPANET](https://www.epa.gov/water-research/epanet).
+I use GIS, remote sensing and decision analysis techniques to investigate sustainable potentials of renewable energy resources (solar, wind and biomass energy) and environmentally-sound planning of waste management facilities, solar farms, wind farms and biorefineries. I have a particular focus on climate change impacts on energy demand (heating and cooling degree days) and renewable energy. I’ve also studied on water supply projects, including the design of water supply systems and hydraulic modeling of water distribution systems by [EPANET](https://www.epa.gov/water-research/epanet).
 
 My background and history
 ======
