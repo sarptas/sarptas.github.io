@@ -1,4 +1,4 @@
-<h1 align="center">Hasan Sarptaş, Dr.</h1>
+<h1 align="center">Hasan Sarptaş, Assoc. Prof. Dr.</h1>
 <h4 align="center">from İzmir, Turkey.</h3>
 <h4 align="center">an environmental engineer and </h3>  
 <h4 align="center">an assistant professor at Ege University, Solar Energy Institute.</h3> 
