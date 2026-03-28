@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Internet Kapısı</title>
+        <style>
+            :root {
+                --bg: #181c22;
+                --surface: #21262f;
+                --surface2: #272d38;
+                --border: #2e3441;
+                --text-primary: #e8eaf0;
+                --text-secondary: #8b92a0;
+                --accent: #3b82f6;
+                --accent-hover: #2563eb;
+                --accent-soft: #1e3a5f;
+                --link-hover-bg: #2a3040;
+                --danger: #f87171;
+                --danger-bg: #3a1f1f;
+                --shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+                --radius: 13px;
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: "Barlow", sans-serif;
+                font-weight: 400;
+                background: var(--bg);
+                color: var(--text-primary);
+                min-height: 100vh;
+                padding: 0 0 60px;
+            }
+
+            /* ── Header ── */
+            header {
+                background: var(--surface);
+                border-bottom: 1px solid var(--border);
+                padding: 18px 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                font-weight: 300;
+                letter-spacing: -0.3px;
+                color: var(--accent);
+            }
+
+            .logo span {
+                color: var(--text-primary);
+            }
+
+            .header-actions {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .header-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                border: none;
+                border-radius: 8px;
+                padding: 9px 14px;
+                font-size: 0.82rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.2s, transform 0.1s;
+            }
+
+            .header-btn.secondary {
+                background: var(--surface2);
+                color: var(--text-secondary);
+                border: 1px solid var(--border);
+            }
+
+            .header-btn.secondary:hover {
+                background: var(--border);
+                color: var(--text-primary);
+                transform: translateY(-1px);
+            }
+
+            /* ── Drag handle ── */
+            .drag-handle {
+                cursor: grab;
+                color: var(--border);
+                font-size: 1rem;
+                padding: 2px 5px 2px 2px;
+                flex-shrink: 0;
+                line-height: 1;
+                transition: color 0.15s;
+                user-select: none;
+            }
+
+            .link-item:hover .drag-handle {
+                color: var(--text-secondary);
+            }
+
+            .drag-handle:active {
+                cursor: grabbing;
+            }
+
+            .link-item.dragging {
+                opacity: 0.4;
+            }
+
+            .link-item.drag-over {
+                background: var(--accent-soft);
+                border-radius: 7px;
+            }
+
+            /* ── Toast notification ── */
+            #toast {
+                position: fixed;
+                bottom: 28px;
+                left: 50%;
+                transform: translateX(-50%) translateY(20px);
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                color: var(--text-primary);
+                padding: 10px 20px;
+                border-radius: 10px;
+                font-size: 0.85rem;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+                opacity: 0;
+                transition: opacity 0.25s, transform 0.25s;
+                z-index: 2000;
+                pointer-events: none;
+            }
+
+            #toast.show {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                background: var(--accent);
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                padding: 9px 18px;
+                font-size: 0.85rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition:
+                    background 0.2s,
+                    transform 0.1s;
+            }
+
+            #add-category-btn:hover {
+                background: var(--accent-hover);
+                transform: translateY(-1px);
+            }
+
+            /* ── Clock ── */
+            #clock-bar {
+                text-align: center;
+                padding: 28px 0 4px;
+                font-size: 3rem;
+                font-family: "Barlow", sans-serif;
+                font-weight: 200;
+                color: var(--text-secondary);
+                letter-spacing: -1px;
+            }
+
+            #date-str {
+                text-align: center;
+                font-size: 0.83rem;
+                color: var(--text-secondary);
+                margin-bottom: 8px;
+                font-weight: 400;
+            }
+
+            /* ── Main grid ── */
+            #board {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+                gap: 22px;
+                padding: 32px 40px;
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+
+            /* ── Category card ── */
+            .category-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 20px 20px 16px;
+                box-shadow: var(--shadow);
+                display: flex;
+                flex-direction: column;
+                transition:
+                    box-shadow 0.2s,
+                    border-color 0.2s;
+                animation: fadeUp 0.3s ease both;
+            }
+
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(14px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .category-card:hover {
+                box-shadow: 0 6px 28px rgba(0, 0, 0, 0.5);
+                border-color: #3b4256;
+            }
+
+            .card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+                font-weight: 400;
+                color: var(--text-primary);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .card-icon {
+                font-size: 1.25rem;
+                line-height: 1.1;
+            }
+
+            .card-actions {
+                display: flex;
+                gap: 3px;
+                opacity: 0;
+                transition: opacity 0.2s;
+            }
+
+            .category-card:hover .card-actions {
+                opacity: 1;
+            }
+
+            .icon-btn {
+                background: none;
+                border: none;
+                border-radius: 6px;
+                width: 27px;
+                height: 27px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 0.85rem;
+                transition: background 0.15s;
+            }
+
+            .icon-btn:hover {
+                background: var(--surface2);
+            }
+            .icon-btn.delete-cat:hover {
+                background: var(--danger-bg);
+            }
+
+            .card-divider {
+                height: 1px;
+                background: var(--border);
+                margin-bottom: 10px;
+            }
+
+            /* ── Link list ── */
+            .link-list {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .link-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 7px;
+                padding: 6px 7px 6px 5px;
+                transition: background 0.12s;
+            }
+
+            .link-item:hover {
+                background: var(--link-hover-bg);
+            }
+
+            .link-anchor {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                text-decoration: none;
+                color: var(--text-primary);
+                font-size: 1.1rem;
+                font-weight: 400;
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .link-anchor:hover {
+                color: var(--accent);
+            }
+
+            .favicon {
+                width: 18px;
+                height: 18px;
+                border-radius: 3px;
+                flex-shrink: 0;
+                object-fit: contain;
+            }
+
+            .delete-link-btn {
+                opacity: 0;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--text-secondary);
+                font-size: 0.78rem;
+                padding: 2px 5px;
+                border-radius: 4px;
+                transition:
+                    opacity 0.12s,
+                    background 0.12s,
+                    color 0.12s;
+                flex-shrink: 0;
+                line-height: 1;
+            }
+
+            .link-item:hover .delete-link-btn {
+                opacity: 1;
+            }
+            .delete-link-btn:hover {
+                background: var(--danger-bg);
+                color: var(--danger);
+            }
+
+            /* ── Toggle button ── */
+            .toggle-add-link {
+                margin-top: 10px;
+                background: none;
+                border: 1px dashed var(--border);
+                border-radius: 7px;
+                width: 100%;
+                padding: 7px;
+                color: var(--text-secondary);
+                font-size: 0.8rem;
+                cursor: pointer;
+                transition:
+                    border-color 0.15s,
+                    color 0.15s,
+                    background 0.15s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .toggle-add-link:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+                background: var(--accent-soft);
+            }
+
+            /* ── Add link form (vertical, always fits inside card) ── */
+            .add-link-form {
+                display: none;
+                flex-direction: column;
+                gap: 7px;
+                margin-top: 10px;
+                padding: 12px;
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                border-radius: 9px;
+            }
+
+            .add-link-form.open {
+                display: flex;
+            }
+
+            .add-link-form input {
+                width: 100%;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                padding: 8px 10px;
+                font-size: 0.83rem;
+                color: var(--text-primary);
+                background: var(--bg);
+                outline: none;
+                transition: border-color 0.15s;
+            }
+
+            .add-link-form input::placeholder {
+                color: var(--text-secondary);
+            }
+            .add-link-form input:focus {
+                border-color: var(--accent);
+            }
+
+            .add-link-form-buttons {
+                display: flex;
+                gap: 7px;
+            }
+
+            .btn-add {
+                flex: 1;
+                background: var(--accent);
+                color: #fff;
+                border: none;
+                border-radius: 7px;
+                padding: 8px;
+                font-size: 0.83rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+
+            .btn-add:hover {
+                background: var(--accent-hover);
+            }
+
+            .btn-cancel-add {
+                background: none;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                padding: 8px 12px;
+                font-size: 0.83rem;
+                color: var(--text-secondary);
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+
+            .btn-cancel-add:hover {
+                background: var(--surface);
+            }
+
+            /* ── Modal ── */
+            .modal-backdrop {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.65);
+                backdrop-filter: blur(4px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s;
+            }
+
+            .modal-backdrop.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .modal {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 30px;
+                width: min(420px, 92vw);
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+                transform: translateY(10px);
+                transition: transform 0.2s;
+            }
+
+            .modal-backdrop.open .modal {
+                transform: translateY(0);
+            }
+
+            .modal h2 {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 20px;
+                color: var(--text-primary);
+            }
+
+            .modal label {
+                font-size: 0.75rem;
+                color: var(--text-secondary);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                display: block;
+                margin-bottom: 6px;
+            }
+
+            .modal input {
+                width: 100%;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 9px 12px;
+                font-size: 0.9rem;
+                color: var(--text-primary);
+                background: var(--bg);
+                outline: none;
+                margin-bottom: 16px;
+                transition: border-color 0.15s;
+            }
+
+            .modal input::placeholder {
+                color: var(--text-secondary);
+            }
+            .modal input:focus {
+                border-color: var(--accent);
+            }
+
+            .emoji-picker {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-bottom: 20px;
+            }
+
+            .emoji-btn {
+                font-size: 1.2rem;
+                width: 38px;
+                height: 38px;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                background: var(--bg);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    border-color 0.15s,
+                    background 0.15s;
+            }
+
+            .emoji-btn:hover,
+            .emoji-btn.selected {
+                border-color: var(--accent);
+                background: var(--accent-soft);
+            }
+
+            .modal-buttons {
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+            }
+
+            .btn-cancel {
+                background: none;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 9px 20px;
+                font-size: 0.87rem;
+                color: var(--text-secondary);
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+
+            .btn-cancel:hover {
+                background: var(--surface2);
+            }
+
+            .btn-primary {
+                background: var(--accent);
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                padding: 9px 24px;
+                font-size: 0.87rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+
+            .btn-primary:hover {
+                background: var(--accent-hover);
+            }
+
+            @media (max-width: 600px) {
+                header {
+                    padding: 14px 16px;
+                }
+                #board {
+                    padding: 18px 16px;
+                    gap: 14px;
+                }
+                #clock-bar {
+                    font-weight: 600;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo">Internet Kapısı<span> - Hasan Sarptaş</span></div>
+            <div class="header-actions">
+                <button
+                    class="header-btn secondary"
+                    onclick="importJSON()"
+                    title="JSON dosyasından içe aktar"
+                >
+                    ⬆ İçe Aktar
+                </button>
+                <button
+                    class="header-btn secondary"
+                    onclick="exportJSON()"
+                    title="Verileri JSON olarak indir"
+                >
+                    ⬇ Dışa Aktar
+                </button>
+                <button id="add-category-btn" onclick="openAddCategoryModal()">
+                    ＋ Kategori Ekle
+                </button>
+            </div>
+            <input
+                type="file"
+                id="import-file-input"
+                accept=".json"
+                style="display: none"
+                onchange="handleImportFile(event)"
+            />
+        </header>
+
+        <div id="clock-bar">--:--</div>
+        <div id="date-str"></div>
+
+        <div id="board"></div>
+
+        <!-- Category Modal -->
+        <div class="modal-backdrop" id="modal-backdrop">
+            <div class="modal">
+                <h2 id="modal-title">Yeni Kategori</h2>
+                <label>Kategori Adı</label>
+                <input
+                    type="text"
+                    id="modal-cat-name"
+                    placeholder="örn. Araştırma"
+                    maxlength="30"
+                />
+                <label>Simge</label>
+                <div class="emoji-picker" id="emoji-picker"></div>
+                <div class="modal-buttons">
+                    <button class="btn-cancel" onclick="closeModal()">
+                        İptal
+                    </button>
+                    <button class="btn-primary" onclick="saveCategory()">
+                        Kaydet
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast"></div>
+
+        <script>
+            function uid() {
+                return Math.random().toString(36).slice(2, 9);
+            }
+
+            const DEFAULT_DATA = [
+                {
+                    id: uid(),
+                    title: "İş",
+                    icon: "💼",
+                    links: [
+                        {
+                            id: uid(),
+                            name: "Gmail",
+                            url: "https://mail.google.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Google Drive",
+                            url: "https://drive.google.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Google Takvim",
+                            url: "https://calendar.google.com",
+                        },
+                        { id: uid(), name: "Notion", url: "https://notion.so" },
+                        { id: uid(), name: "Slack", url: "https://slack.com" },
+                    ],
+                },
+                {
+                    id: uid(),
+                    title: "Araştırma",
+                    icon: "🔬",
+                    links: [
+                        {
+                            id: uid(),
+                            name: "Google Scholar",
+                            url: "https://scholar.google.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Wikipedia",
+                            url: "https://tr.wikipedia.org",
+                        },
+                        {
+                            id: uid(),
+                            name: "ResearchGate",
+                            url: "https://www.researchgate.net",
+                        },
+                        {
+                            id: uid(),
+                            name: "JSTOR",
+                            url: "https://www.jstor.org",
+                        },
+                    ],
+                },
+                {
+                    id: uid(),
+                    title: "Yapay Zeka",
+                    icon: "🤖",
+                    links: [
+                        { id: uid(), name: "Claude", url: "https://claude.ai" },
+                        {
+                            id: uid(),
+                            name: "ChatGPT",
+                            url: "https://chat.openai.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Gemini",
+                            url: "https://gemini.google.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Perplexity",
+                            url: "https://www.perplexity.ai",
+                        },
+                        {
+                            id: uid(),
+                            name: "Hugging Face",
+                            url: "https://huggingface.co",
+                        },
+                    ],
+                },
+                {
+                    id: uid(),
+                    title: "Araçlar",
+                    icon: "🛠️",
+                    links: [
+                        { id: uid(), name: "Figma", url: "https://figma.com" },
+                        {
+                            id: uid(),
+                            name: "Excalidraw",
+                            url: "https://excalidraw.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Canva",
+                            url: "https://www.canva.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Convertio",
+                            url: "https://convertio.co",
+                        },
+                    ],
+                },
+                {
+                    id: uid(),
+                    title: "Sosyal Medya",
+                    icon: "💬",
+                    links: [
+                        {
+                            id: uid(),
+                            name: "X / Twitter",
+                            url: "https://x.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "LinkedIn",
+                            url: "https://linkedin.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Instagram",
+                            url: "https://instagram.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Reddit",
+                            url: "https://reddit.com",
+                        },
+                    ],
+                },
+                {
+                    id: uid(),
+                    title: "Haberler",
+                    icon: "📰",
+                    links: [
+                        {
+                            id: uid(),
+                            name: "BBC Türkçe",
+                            url: "https://www.bbc.com/turkce",
+                        },
+                        {
+                            id: uid(),
+                            name: "Hürriyet",
+                            url: "https://www.hurriyet.com.tr",
+                        },
+                        {
+                            id: uid(),
+                            name: "Reuters",
+                            url: "https://www.reuters.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "The Guardian",
+                            url: "https://www.theguardian.com",
+                        },
+                    ],
+                },
+                {
+                    id: uid(),
+                    title: "Alışveriş",
+                    icon: "🛒",
+                    links: [
+                        {
+                            id: uid(),
+                            name: "Trendyol",
+                            url: "https://www.trendyol.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Hepsiburada",
+                            url: "https://www.hepsiburada.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Amazon",
+                            url: "https://www.amazon.com.tr",
+                        },
+                        { id: uid(), name: "n11", url: "https://www.n11.com" },
+                    ],
+                },
+                {
+                    id: uid(),
+                    title: "Eğlence",
+                    icon: "🎬",
+                    links: [
+                        {
+                            id: uid(),
+                            name: "YouTube",
+                            url: "https://youtube.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Netflix",
+                            url: "https://netflix.com",
+                        },
+                        {
+                            id: uid(),
+                            name: "Spotify",
+                            url: "https://open.spotify.com",
+                        },
+                        { id: uid(), name: "Twitch", url: "https://twitch.tv" },
+                    ],
+                },
+            ];
+
+            const EMOJIS = [
+                "💼",
+                "🔬",
+                "🤖",
+                "🛠️",
+                "💬",
+                "📰",
+                "🛒",
+                "🎬",
+                "📚",
+                "🎵",
+                "🏠",
+                "✈️",
+                "💡",
+                "🎮",
+                "📊",
+                "🌐",
+                "⚡",
+                "🔐",
+                "📷",
+                "🎨",
+                "🏋️",
+                "🍽️",
+                "💰",
+                "🧪",
+                "🗂️",
+                "📌",
+                "🌍",
+                "🎯",
+            ];
+
+            function loadData() {
+                try {
+                    const raw = localStorage.getItem("giris_paneli_v3");
+                    if (raw) return JSON.parse(raw);
+                } catch (e) {}
+                return JSON.parse(JSON.stringify(DEFAULT_DATA));
+            }
+
+            function saveData() {
+                localStorage.setItem("giris_paneli_v3", JSON.stringify(state));
+            }
+
+            let state = loadData();
+
+            function faviconUrl(url) {
+                try {
+                    const host = new URL(url).hostname;
+                    return `https://www.google.com/s2/favicons?sz=32&domain=${host}`;
+                } catch {
+                    return "";
+                }
+            }
+
+            function escHtml(s) {
+                return String(s)
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            // ── Render ─────────────────────────────────────────────────────────────────
+            function render() {
+                const board = document.getElementById("board");
+                board.innerHTML = "";
+                state.forEach((cat, ci) => {
+                    const card = document.createElement("div");
+                    card.className = "category-card";
+
+                    const linksHtml = cat.links
+                        .map(
+                            (lnk, li) => `
+        <li class="link-item" draggable="true"
+            data-ci="${ci}" data-li="${li}"
+            ondragstart="onDragStart(event,${ci},${li})"
+            ondragover="onDragOver(event)"
+            ondrop="onDrop(event,${ci},${li})"
+            ondragend="onDragEnd(event)"
+            ondragleave="onDragLeave(event)">
+          <span class="drag-handle" title="Sıralamak için sürükle">⠿</span>
+          <a class="link-anchor" href="${escHtml(lnk.url)}" target="_blank" rel="noopener">
+            <img class="favicon" src="${faviconUrl(lnk.url)}" onerror="this.style.display='none'" alt=""/>
+            ${escHtml(lnk.name)}
+          </a>
+          <button class="delete-link-btn" title="Sil" onclick="deleteLink(${ci},${li})">✕</button>
+        </li>
+      `,
+                        )
+                        .join("");
+
+                    card.innerHTML = `
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon">${cat.icon}</span>
+            ${escHtml(cat.title)}
+          </div>
+          <div class="card-actions">
+            <button class="icon-btn" title="Düzenle" onclick="editCategory(${ci})">✏️</button>
+            <button class="icon-btn delete-cat" title="Kategoriyi Sil" onclick="deleteCategory(${ci})">🗑️</button>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <ul class="link-list">${linksHtml}</ul>
+        <button class="toggle-add-link" id="togglebtn-${cat.id}" onclick="toggleAddLink('${cat.id}')">＋ Site ekle</button>
+        <div class="add-link-form" id="addform-${cat.id}">
+          <input type="text" placeholder="Site adı (örn. GitHub)" id="lname-${cat.id}" maxlength="40"
+            onkeydown="handleAddKey(event,'${cat.id}',${ci})"/>
+          <input type="text" placeholder="URL (örn. https://github.com)" id="lurl-${cat.id}" maxlength="300"
+            onkeydown="handleAddKey(event,'${cat.id}',${ci})"/>
+          <div class="add-link-form-buttons">
+            <button class="btn-add" onclick="addLink('${cat.id}',${ci})">Ekle</button>
+            <button class="btn-cancel-add" onclick="closeAddLink('${cat.id}')">İptal</button>
+          </div>
+        </div>
+      `;
+                    board.appendChild(card);
+                });
+            }
+
+            // ── Add link form ─────────────────────────────────────────────────────────
+            function toggleAddLink(catId) {
+                document
+                    .getElementById("addform-" + catId)
+                    .classList.add("open");
+                document.getElementById("togglebtn-" + catId).style.display =
+                    "none";
+                setTimeout(
+                    () => document.getElementById("lname-" + catId).focus(),
+                    30,
+                );
+            }
+
+            function closeAddLink(catId) {
+                document
+                    .getElementById("addform-" + catId)
+                    .classList.remove("open");
+                document.getElementById("togglebtn-" + catId).style.display =
+                    "flex";
+                document.getElementById("lname-" + catId).value = "";
+                document.getElementById("lurl-" + catId).value = "";
+            }
+
+            function handleAddKey(e, catId, ci) {
+                if (e.key === "Enter") addLink(catId, ci);
+                if (e.key === "Escape") closeAddLink(catId);
+            }
+
+            function addLink(catId, ci) {
+                const nameEl = document.getElementById("lname-" + catId);
+                const urlEl = document.getElementById("lurl-" + catId);
+                const name = nameEl.value.trim();
+                let url = urlEl.value.trim();
+                if (!name) {
+                    nameEl.focus();
+                    return;
+                }
+                if (!url) {
+                    urlEl.focus();
+                    return;
+                }
+                if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+                state[ci].links.push({ id: uid(), name, url });
+                saveData();
+                render();
+            }
+
+            function deleteLink(ci, li) {
+                if (!confirm("Bu siteyi silmek istiyor musunuz?")) return;
+                state[ci].links.splice(li, 1);
+                saveData();
+                render();
+            }
+
+            // ── Category modal ────────────────────────────────────────────────────────
+            let editingIndex = null;
+            let selectedEmoji = EMOJIS[0];
+
+            function buildEmojiPicker(current) {
+                selectedEmoji = current || EMOJIS[0];
+                const picker = document.getElementById("emoji-picker");
+                picker.innerHTML = EMOJIS.map(
+                    (e) => `
+      <button class="emoji-btn ${e === selectedEmoji ? "selected" : ""}" onclick="selectEmoji('${e}',this)">${e}</button>
+    `,
+                ).join("");
+            }
+
+            function selectEmoji(e, btn) {
+                selectedEmoji = e;
+                document
+                    .querySelectorAll(".emoji-btn")
+                    .forEach((b) => b.classList.remove("selected"));
+                btn.classList.add("selected");
+            }
+
+            function openAddCategoryModal() {
+                editingIndex = null;
+                document.getElementById("modal-title").textContent =
+                    "Yeni Kategori";
+                document.getElementById("modal-cat-name").value = "";
+                buildEmojiPicker(EMOJIS[0]);
+                document.getElementById("modal-backdrop").classList.add("open");
+                setTimeout(
+                    () => document.getElementById("modal-cat-name").focus(),
+                    50,
+                );
+            }
+
+            function editCategory(ci) {
+                editingIndex = ci;
+                const cat = state[ci];
+                document.getElementById("modal-title").textContent =
+                    "Kategoriyi Düzenle";
+                document.getElementById("modal-cat-name").value = cat.title;
+                buildEmojiPicker(cat.icon);
+                document.getElementById("modal-backdrop").classList.add("open");
+                setTimeout(
+                    () => document.getElementById("modal-cat-name").focus(),
+                    50,
+                );
+            }
+
+            function saveCategory() {
+                const name = document
+                    .getElementById("modal-cat-name")
+                    .value.trim();
+                if (!name) {
+                    document.getElementById("modal-cat-name").focus();
+                    return;
+                }
+                if (editingIndex === null) {
+                    state.push({
+                        id: uid(),
+                        title: name,
+                        icon: selectedEmoji,
+                        links: [],
+                    });
+                } else {
+                    state[editingIndex].title = name;
+                    state[editingIndex].icon = selectedEmoji;
+                }
+                saveData();
+                render();
+                closeModal();
+            }
+
+            function deleteCategory(ci) {
+                if (
+                    !confirm(
+                        '"' +
+                            state[ci].title +
+                            '" kategorisini ve tüm sitelerini silmek istiyor musunuz?',
+                    )
+                )
+                    return;
+                state.splice(ci, 1);
+                saveData();
+                render();
+            }
+
+            function closeModal() {
+                document
+                    .getElementById("modal-backdrop")
+                    .classList.remove("open");
+            }
+
+            document
+                .getElementById("modal-backdrop")
+                .addEventListener("click", function (e) {
+                    if (e.target === this) closeModal();
+                });
+
+            document
+                .getElementById("modal-cat-name")
+                .addEventListener("keydown", function (e) {
+                    if (e.key === "Enter") saveCategory();
+                    if (e.key === "Escape") closeModal();
+                });
+
+            // ── Export JSON ───────────────────────────────────────────────────────────
+            function exportJSON() {
+                const clean = state.map((cat) => ({
+                    title: cat.title,
+                    icon: cat.icon,
+                    links: cat.links.map((l) => ({ name: l.name, url: l.url })),
+                }));
+                const blob = new Blob([JSON.stringify(clean, null, 2)], {
+                    type: "application/json",
+                });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = "giris-paneli-data.json";
+                a.click();
+                URL.revokeObjectURL(a.href);
+                showToast("✅ Veriler dışa aktarıldı");
+            }
+
+            // ── Import JSON ───────────────────────────────────────────────────────────
+            function importJSON() {
+                document.getElementById("import-file-input").click();
+            }
+
+            function handleImportFile(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    try {
+                        const parsed = JSON.parse(ev.target.result);
+                        if (!Array.isArray(parsed))
+                            throw new Error("Geçersiz format");
+                        const imported = parsed.map((cat) => ({
+                            id: uid(),
+                            title: cat.title || "Kategori",
+                            icon: cat.icon || "🔗",
+                            links: (cat.links || []).map((l) => ({
+                                id: uid(),
+                                name: l.name || l.url,
+                                url: l.url,
+                            })),
+                        }));
+                        if (
+                            !confirm(
+                                "Mevcut veriler JSON dosyasıyla değiştirilecek. Devam edilsin mi?",
+                            )
+                        )
+                            return;
+                        state = imported;
+                        saveData();
+                        render();
+                        showToast("✅ Veriler içe aktarıldı");
+                    } catch (err) {
+                        showToast("❌ Geçersiz JSON dosyası");
+                    }
+                    e.target.value = "";
+                };
+                reader.readAsText(file);
+            }
+
+            // ── Drag & drop sıralama ──────────────────────────────────────────────────
+            let dragSrc = null; // { ci, li }
+
+            function onDragStart(e, ci, li) {
+                dragSrc = { ci, li };
+                e.currentTarget.classList.add("dragging");
+                e.dataTransfer.effectAllowed = "move";
+            }
+
+            function onDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = "move";
+                e.currentTarget.classList.add("drag-over");
+            }
+
+            function onDragLeave(e) {
+                e.currentTarget.classList.remove("drag-over");
+            }
+
+            function onDrop(e, ci, li) {
+                e.preventDefault();
+                e.currentTarget.classList.remove("drag-over");
+                if (!dragSrc) return;
+                if (dragSrc.ci !== ci) {
+                    showToast(
+                        "ℹ️ Siteler yalnızca kendi kategorisi içinde taşınabilir",
+                    );
+                    return;
+                }
+                if (dragSrc.li === li) return;
+                const links = state[ci].links;
+                const [moved] = links.splice(dragSrc.li, 1);
+                links.splice(li, 0, moved);
+                saveData();
+                render();
+            }
+
+            function onDragEnd(e) {
+                e.currentTarget.classList.remove("dragging");
+                document
+                    .querySelectorAll(".drag-over")
+                    .forEach((el) => el.classList.remove("drag-over"));
+                dragSrc = null;
+            }
+
+            // ── Toast ─────────────────────────────────────────────────────────────────
+            let toastTimer = null;
+            function showToast(msg) {
+                const t = document.getElementById("toast");
+                t.textContent = msg;
+                t.classList.add("show");
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => t.classList.remove("show"), 2500);
+            }
+
+            // ── Clock ─────────────────────────────────────────────────────────────────
+            function updateClock() {
+                const now = new Date();
+                const hh = String(now.getHours()).padStart(2, "0");
+                const mm = String(now.getMinutes()).padStart(2, "0");
+                document.getElementById("clock-bar").textContent =
+                    hh + ":" + mm;
+                const days = [
+                    "Pazar",
+                    "Pazartesi",
+                    "Salı",
+                    "Çarşamba",
+                    "Perşembe",
+                    "Cuma",
+                    "Cumartesi",
+                ];
+                const months = [
+                    "Ocak",
+                    "Şubat",
+                    "Mart",
+                    "Nisan",
+                    "Mayıs",
+                    "Haziran",
+                    "Temmuz",
+                    "Ağustos",
+                    "Eylül",
+                    "Ekim",
+                    "Kasım",
+                    "Aralık",
+                ];
+                document.getElementById("date-str").textContent =
+                    days[now.getDay()] +
+                    ", " +
+                    now.getDate() +
+                    " " +
+                    months[now.getMonth()] +
+                    " " +
+                    now.getFullYear();
+            }
+
+            updateClock();
+            setInterval(updateClock, 15000);
+            render();
+        </script>
+    </body>
+</html>
