@@ -1,6 +1,6 @@
 ---
 title: Students
-subtitle: Hasan Sarptaş
+subtitle: 
 ---
 
 ::::{grid} 12

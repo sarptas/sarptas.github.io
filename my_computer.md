@@ -1,6 +1,6 @@
 ---
 title: My Computer
-subtitle: Hasan Sarptaş
+subtitle: 
 ---
 
 ## Software & Tools I've used

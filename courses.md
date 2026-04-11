@@ -1,6 +1,6 @@
 ---
 title: Courses
-subtitle: Hasan Sarptaş
+subtitle:
 ---
 
 ::::{grid} 2

@@ -1,6 +1,6 @@
 ---
 title: Publications
-subtitle: Hasan Sarptaş
+subtitle: 
 ---
 
 # Papers
@@ -49,4 +49,3 @@ Energy Sources, 27(15), *2005*.
 
 **Management of Electronic Wastes** (*In Turkish*) \
 Katı Atık ve Çevre, 53, *2004*.
-

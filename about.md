@@ -1,6 +1,6 @@
 ---
 title: About
-subtitle: Hasan Sarptaş
+subtitle:
 ---
 
 # About me

@@ -1,6 +1,6 @@
 ---
 title: News
-subtitle: Hasan Sarptaş
+subtitle: 
 --- 
 
 ### Our new paper on torrefaction of hazelnut shell

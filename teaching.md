@@ -1,6 +1,6 @@
 ---
 title: Teaching
-subtitle: Hasan Sarptaş
+subtitle: 
 ---
 
 ## Courses at Ege University

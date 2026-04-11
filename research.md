@@ -1,6 +1,6 @@
 ---
 title: Research
-subtitle: Hasan Sarptaş
+subtitle: 
 ---
 
 # Research Interest

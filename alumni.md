@@ -1,6 +1,6 @@
 ---
 title: Alumni
-subtitle: Hasan Sarptaş
+subtitle: 
 ---
 
 **İrem Cengiz Boz** - *MSc*, 2023 \
