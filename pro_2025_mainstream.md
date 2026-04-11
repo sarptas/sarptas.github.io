@@ -5,8 +5,15 @@ subtitle:
 
 ## **Upgrading Industrial Water Management through Sustainable Monitoring, Treatment, and Supportive Governance**
 
+```{image} images/mainstream_banner.jpg
+:alt: 
+:width: 100%
+:align: left
+```
+
 **Project Overview**
 MAINSTREAM is a transnational research project funded under the **Water4All 2024 Joint Transnational Call**. The project aims to revolutionize industrial water circularity by overcoming technological, economic, and social barriers to water reuse. By integrating innovative sensor technologies, cost-effective treatment processes, and digitalization tools, MAINSTREAM targets a "Zero Liquid Discharge" (ZLD) goal within industrial ecosystems.
+
 
 * **Project Status:** Ongoing (Active Implementation Phase)
 * **Timeline:** 2024 – 2027

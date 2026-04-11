@@ -5,6 +5,12 @@ subtitle:
 
 ## **Sustainable Phosphorus Recovery from Waste through Integrated Environmental and Energy Management**
 
+```{image} images/prewa_banner.jpg
+:alt: 
+:width: 100%
+:align: left
+```
+
 **Project Overview**
 PREWA is an innovative research project focused on establishing a circular economy model by recovering phosphorus from waste materials. The project integrates advanced thermal treatments and environmental management strategies to produce high-value biocarbons and facilitate nutrient recovery, thereby reducing reliance on mineral phosphorus and promoting sustainable waste-to-energy pathways.
 
