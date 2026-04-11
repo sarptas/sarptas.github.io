@@ -1,0 +1,17 @@
+---
+title: News
+subtitle: Hasan Sarptaş
+---
+
+## New Paper
+
+Our recent paper published in Energies Journal
+
+```{image} images/paper_energies_2025.jpg
+:align: left
+:target: [https://doi.org/10.3390/en18174710](https://doi.org/10.3390/en18174710)
+```
+
+```markdown
+[![Energies paper](images/paper_energies_2025.jpg)](https://doi.org/10.3390/en18174710)
+```
