@@ -6,7 +6,7 @@ project:
   title: Hasan Sarptaş
   description: Hasan Sarptaş Personal web site
   keywords: [sarptas, sarptaş, hasan sarptaş, qgis, renewable]
-  authors: [Hasan Sarptaş]
+  # authors: [Hasan Sarptaş]
   # github: sarptas.github.io
   # To autogenerate a Table of Contents, run "myst init --write-toc"
   toc:
