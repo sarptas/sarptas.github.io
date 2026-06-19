@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Sarptaş;Hasan;;Assoc. Prof. Dr.;
+FN:Assoc. Prof. Dr. Hasan Sarptaş
+ORG:Ege University
+TITLE:Assoc. Prof. Dr.
+EMAIL;TYPE=PREF,INTERNET:hasan.sarptas@ege.edu.tr
+URL:https://sarptas.github.io/
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/sarptas
+URL;TYPE=GitHub:https://github.com/sarptas
+URL;TYPE=Twitter:https://x.com/sarptas
+REV:2026-06-19T13:30:00Z
+END:VCARD

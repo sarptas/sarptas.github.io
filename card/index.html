@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasan Sarptaş - Dijital Kartvizit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --accent-color: #2563eb; /* Modern Mavi */
+            --accent-hover: #1d4ed8;
+            --border-color: #eaeaea;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card-container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 10px auto;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .title {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--accent-color);
+            margin-bottom: 4px;
+        }
+
+        .company {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+
+        /* Ana vCard Butonu */
+        .vcard-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+            margin-bottom: 28px;
+        }
+
+        .vcard-btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Link Listesi */
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-radius: 14px;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 14.5px;
+            transition: all 0.2s ease;
+        }
+
+        .link-item:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(2px);
+        }
+
+        .link-item i {
+            font-size: 18px;
+            width: 28px;
+            color: var(--text-muted);
+            text-align: left;
+        }
+
+        .link-item span {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .link-item .arrow-icon {
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: right;
+            width: auto;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 32px;
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="profile-img-container">
+            <img src="hasan.png" alt="Hasan Sarptaş" class="profile-img">
+        </div>
+
+        <h1 class="name">Hasan Sarptaş</h1>
+        <div class="title">Assoc. Prof. Dr.</div>
+        <div class="company">Ege University</div>
+
+        <a href="hasan_sarptas.vcf" class="vcard-btn">
+            <i class="fa-solid fa-user-plus"></i> Kişilere Ekle
+        </a>
+
+        <div class="links-list">
+            <a href="mailto:hasan.sarptas@ege.edu.tr" class="link-item">
+                <i class="fa-regular fa-envelope" style="color: #ea4335;"></i>
+                <span>E-mail  : hasan.sarptas@ege.edu.tr</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://sarptas.github.io/" target="_blank" class="link-item">
+                <i class="fa-solid fa-globe" style="color: #0ea5e9;"></i>
+                <span>Web Site: sarptas.github.io</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://www.linkedin.com/in/sarptas" target="_blank" class="link-item">
+                <i class="fa-brands fa-linkedin" style="color: #0077b5;"></i>
+                <span>LinkedIn</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://github.com/sarptas" target="_blank" class="link-item">
+                <i class="fa-brands fa-github" style="color: #24292e;"></i>
+                <span>GitHub</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://x.com/sarptas" target="_blank" class="link-item">
+                <i class="fa-brands fa-x-twitter" style="color: #000000;"></i>
+                <span>Twitter / X</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+        </div>
+
+        <div class="footer">
+            © 2026 HASAN SARPTAŞ
+        </div>
+    </div>
+
+</body>
+</html>
